@@ -6,33 +6,38 @@
 <title>Year 10 Data Analytics — Student Research Surveys</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,600;1,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
     --navy: #24356f;
+    --navy-light: #2e4494;
     --burgundy: #991b2a;
-    --bg: #f7f7f5;
+    --bg: #f4f3f0;
     --surface: #ffffff;
-    --border: rgba(0,0,0,0.09);
-    --border-med: rgba(0,0,0,0.15);
+    --border: rgba(0,0,0,0.08);
+    --border-med: rgba(0,0,0,0.14);
+    --border-hover: rgba(36,53,111,0.35);
     --text-primary: #1a1a1a;
     --text-secondary: #555;
-    --text-muted: #888;
-    --amber-bg: #fef3e2;
-    --amber-text: #92510a;
+    --text-muted: #999;
+    --amber-bg: #fff4e0;
+    --amber-text: #7a4200;
     --amber-bar: #e09118;
-    --blue-bg: #e8f1fc;
+    --amber-border: rgba(224,145,24,0.3);
+    --blue-bg: #e6f0fb;
     --blue-text: #1a4f8a;
     --blue-bar: #2f7dd4;
-    --green-bg: #eaf4e2;
-    --green-text: #2d6618;
+    --blue-border: rgba(47,125,212,0.3);
+    --green-bg: #e8f5e1;
+    --green-text: #245c14;
     --green-bar: #4a9a2a;
-    --muted-bg: #f0eeeb;
-    --muted-text: #888;
-    --radius: 12px;
-    --radius-sm: 7px;
+    --green-border: rgba(74,154,42,0.3);
+    --muted-bg: #eeece9;
+    --muted-text: #999;
+    --radius: 14px;
+    --radius-sm: 8px;
   }
 
   body {
@@ -44,7 +49,7 @@
   }
 
   .page-wrap {
-    max-width: 980px;
+    max-width: 1020px;
     margin: 0 auto;
     padding: 2.5rem 1.5rem 3rem;
   }
@@ -57,18 +62,17 @@
 
   .page-header h1 {
     font-family: 'DM Serif Display', serif;
-    font-size: 26px;
+    font-size: 28px;
     font-weight: 400;
     color: var(--navy);
     line-height: 1.2;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.6rem;
   }
 
   .page-header p {
     font-size: 14px;
     color: var(--text-secondary);
-    line-height: 1.6;
-    max-width: 620px;
+    line-height: 1.65;
   }
 
   .controls {
@@ -110,7 +114,7 @@
   }
 
   .sort-chip {
-    padding: 4px 11px;
+    padding: 4px 12px;
     border-radius: 20px;
     border: 1px solid var(--border-med);
     cursor: pointer;
@@ -127,7 +131,7 @@
     background: var(--navy);
     border-color: var(--navy);
     color: #fff;
-    font-weight: 500;
+    font-weight: 600;
   }
 
   .survey-grid {
@@ -140,21 +144,22 @@
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 1.1rem 1.15rem 1rem;
+    padding: 1.15rem 1.2rem 1.05rem;
     display: flex;
     flex-direction: column;
     gap: 9px;
-    transition: box-shadow 0.18s, border-color 0.18s;
-    animation: fadeUp 0.3s ease both;
+    transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+    animation: fadeUp 0.35s ease both;
   }
 
   .survey-card:hover {
-    box-shadow: 0 4px 18px rgba(0,0,0,0.07);
-    border-color: var(--border-med);
+    box-shadow: 0 6px 24px rgba(36,53,111,0.1);
+    border-color: var(--border-hover);
+    transform: translateY(-2px);
   }
 
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(8px); }
+    from { opacity: 0; transform: translateY(10px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 
@@ -167,8 +172,8 @@
 
   .card-author {
     font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.05em;
+    font-weight: 600;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--text-muted);
   }
@@ -178,8 +183,8 @@
     align-items: center;
     gap: 3px;
     font-size: 11px;
-    font-weight: 500;
-    padding: 2px 7px;
+    font-weight: 600;
+    padding: 2px 8px;
     border-radius: 20px;
     white-space: nowrap;
     flex-shrink: 0;
@@ -190,18 +195,32 @@
   .badge-good { background: var(--green-bg); color: var(--green-text); }
   .badge-none { background: var(--muted-bg); color: var(--muted-text); }
 
+  .card-topic-wrap {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+  }
+
+  .card-emoji {
+    font-size: 20px;
+    line-height: 1.2;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
   .card-topic {
-    font-size: 13px;
-    font-weight: 500;
+    font-size: 15px;
+    font-weight: 600;
     color: var(--navy);
     line-height: 1.3;
   }
 
   .card-question {
-    font-size: 12px;
+    font-size: 12.5px;
     color: var(--text-secondary);
     line-height: 1.55;
     flex: 1;
+    font-style: italic;
   }
 
   .card-footer {
@@ -210,30 +229,28 @@
     border-top: 1px solid var(--border);
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 9px;
   }
-
-  .progress-wrap {}
 
   .progress-meta {
     display: flex;
     justify-content: space-between;
-    font-size: 10px;
+    font-size: 10.5px;
     color: var(--text-muted);
     margin-bottom: 4px;
   }
 
   .progress-bar-bg {
-    height: 4px;
-    background: #ebebeb;
-    border-radius: 2px;
+    height: 5px;
+    background: #e8e6e1;
+    border-radius: 3px;
     overflow: hidden;
   }
 
   .progress-bar-fill {
     height: 100%;
-    border-radius: 2px;
-    transition: width 0.6s ease;
+    border-radius: 3px;
+    transition: width 0.7s cubic-bezier(0.4,0,0.2,1);
   }
 
   .fill-low  { background: var(--amber-bar); }
@@ -244,44 +261,46 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
-    font-size: 12px;
-    font-weight: 500;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
     font-family: 'DM Sans', sans-serif;
-    color: var(--navy);
-    background: var(--bg);
-    border: 1px solid var(--border-med);
+    color: var(--surface);
+    background: var(--navy);
+    border: none;
     border-radius: var(--radius-sm);
-    padding: 7px 12px;
+    padding: 8px 14px;
     cursor: pointer;
     text-decoration: none;
-    transition: background 0.15s, border-color 0.15s;
+    transition: background 0.15s, transform 0.1s;
     width: 100%;
   }
 
   .take-btn:hover {
-    background: #edecea;
-    border-color: var(--navy);
+    background: var(--navy-light);
+    transform: translateY(-1px);
   }
+
+  .take-btn:active { transform: translateY(0); }
 
   .take-btn.disabled {
     color: var(--muted-text);
     background: var(--muted-bg);
-    border-color: var(--border);
     cursor: default;
     pointer-events: none;
+    font-weight: 400;
   }
 
   .updated-note {
     text-align: right;
     font-size: 11px;
     color: var(--text-muted);
-    margin-top: 1.5rem;
+    margin-top: 1.75rem;
   }
 
   svg.icon {
-    width: 11px;
-    height: 11px;
+    width: 12px;
+    height: 12px;
     stroke: currentColor;
     fill: none;
     stroke-width: 2;
@@ -289,6 +308,19 @@
     stroke-linejoin: round;
     vertical-align: middle;
     flex-shrink: 0;
+  }
+
+  @media (max-width: 600px) {
+    .page-wrap { padding: 1.5rem 1rem 2.5rem; }
+    .page-header h1 { font-size: 22px; }
+    .survey-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .card-emoji { font-size: 18px; }
+    .card-topic { font-size: 13px; }
+    .card-question { font-size: 11.5px; }
+  }
+
+  @media (max-width: 400px) {
+    .survey-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -314,19 +346,16 @@
   </div>
 
   <div class="survey-grid" id="surveyGrid"></div>
-
   <p class="updated-note" id="updatedNote"></p>
 
 </div>
-
 <script>
   let allSurveys = [];
-  let globalTarget = 25;
 
   function getBadge(r, t, hasLink) {
     if (!hasLink) return { cls: 'badge-none', label: 'Coming soon' };
     const pct = r / t;
-    if (pct >= 1)   return { cls: 'badge-good', label: `${r} responses` };
+    if (pct >= 1)   return { cls: 'badge-good', label: `${r} responses ✓` };
     if (pct >= 0.5) return { cls: 'badge-mid',  label: `${r} / ${t}` };
     return             { cls: 'badge-low',  label: `${r} / ${t}` };
   }
@@ -347,29 +376,35 @@
   }
 
   function buildCard(s, index) {
-    const target = globalTarget;
     const hasLink = !!s.link;
-    const pct = hasLink ? Math.min(s.responses / target, 1) : 0;
+    const pct = hasLink ? Math.min(s.responses / s.target, 1) : 0;
     const barWidth = Math.round(pct * 100);
-    const badge = getBadge(s.responses, target, hasLink);
-    const fill = getFill(s.responses, target);
-    const remaining = target - s.responses;
-    const progressLabel = !hasLink ? 'Survey link coming soon' : (s.responses >= target ? 'Target reached' : `${remaining} more needed`);
+    const badge = getBadge(s.responses, s.target, hasLink);
+    const fill = getFill(s.responses, s.target);
+    const remaining = s.target - s.responses;
+    const progressLabel = !hasLink
+      ? 'Survey link coming soon'
+      : s.responses >= s.target
+        ? 'Target reached!'
+        : `${remaining} more needed`;
 
     const btn = hasLink
       ? `<a class="take-btn" href="${s.link}" target="_blank" rel="noopener">Take survey ${externalIcon()}</a>`
       : `<button class="take-btn disabled">${clockIcon()} Coming soon</button>`;
 
     return `
-      <article class="survey-card" style="animation-delay:${index * 40}ms">
+      <article class="survey-card" style="animation-delay:${index * 45}ms">
         <div class="card-top">
           <span class="card-author">${s.student}</span>
           <span class="response-badge ${badge.cls}">${badge.label}</span>
         </div>
-        <p class="card-topic">${s.topic}</p>
+        <div class="card-topic-wrap">
+          <span class="card-emoji" aria-hidden="true">${s.emoji}</span>
+          <p class="card-topic">${s.topic}</p>
+        </div>
         <p class="card-question">${s.question}</p>
         <div class="card-footer">
-          <div class="progress-wrap">
+          <div>
             <div class="progress-meta">
               <span>${progressLabel}</span>
               <span>${hasLink ? barWidth + '%' : ''}</span>
@@ -384,8 +419,8 @@
   }
 
   function renderCards(data) {
-    const grid = document.getElementById('surveyGrid');
-    grid.innerHTML = data.map((s, i) => buildCard(s, i)).join('');
+    document.getElementById('surveyGrid').innerHTML =
+      data.map((s, i) => buildCard(s, i)).join('');
   }
 
   function sortCards(mode, el) {
@@ -394,10 +429,9 @@
     let sorted = [...allSurveys];
     if (mode === 'needs') {
       sorted.sort((a, b) => {
-        const hasA = a.link ? 1 : 0;
-        const hasB = b.link ? 1 : 0;
+        const hasA = a.link ? 1 : 0, hasB = b.link ? 1 : 0;
         if (hasA !== hasB) return hasA - hasB;
-        return (a.responses / globalTarget) - (b.responses / globalTarget);
+        return (a.responses / a.target) - (b.responses / b.target);
       });
     }
     if (mode === 'alpha') sorted.sort((a, b) => a.topic.localeCompare(b.topic));
@@ -409,16 +443,13 @@
     .then(data => {
       document.getElementById('pageTitle').textContent = data.pageTitle;
       document.getElementById('pageSubtitle').innerHTML = data.pageSubtitle;
-      globalTarget = data.target || 25;
       allSurveys = data.surveys;
 
       const sorted = [...allSurveys].sort((a, b) => {
-        const hasA = a.link ? 1 : 0;
-        const hasB = b.link ? 1 : 0;
+        const hasA = a.link ? 1 : 0, hasB = b.link ? 1 : 0;
         if (hasA !== hasB) return hasA - hasB;
-        return (a.responses / globalTarget) - (b.responses / globalTarget);
+        return (a.responses / a.target) - (b.responses / b.target);
       });
-
       renderCards(sorted);
 
       const now = new Date();
@@ -428,7 +459,7 @@
     .catch(() => {
       document.getElementById('pageTitle').textContent = 'Survey Hub';
       document.getElementById('surveyGrid').innerHTML =
-        '<p style="color:#888; font-size:14px;">Could not load survey data. Please check that surveys.json is in the same folder as this file.</p>';
+        '<p style="color:#888;font-size:14px;grid-column:1/-1;">Could not load survey data. Please ensure surveys.json is in the same folder as this file.</p>';
     });
 </script>
 </body>
