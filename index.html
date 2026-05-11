@@ -25,17 +25,16 @@
     --amber-bg: #fff4e0;
     --amber-text: #7a4200;
     --amber-bar: #e09118;
-    --amber-border: rgba(224,145,24,0.3);
     --blue-bg: #e6f0fb;
     --blue-text: #1a4f8a;
     --blue-bar: #2f7dd4;
-    --blue-border: rgba(47,125,212,0.3);
     --green-bg: #e8f5e1;
     --green-text: #245c14;
     --green-bar: #4a9a2a;
-    --green-border: rgba(74,154,42,0.3);
     --muted-bg: #eeece9;
     --muted-text: #999;
+    --audience-bg: #f0eef8;
+    --audience-text: #3d2d7a;
     --radius: 14px;
     --radius-sm: 8px;
   }
@@ -147,7 +146,7 @@
     padding: 1.15rem 1.2rem 1.05rem;
     display: flex;
     flex-direction: column;
-    gap: 9px;
+    gap: 8px;
     transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
     animation: fadeUp 0.35s ease both;
   }
@@ -170,12 +169,31 @@
     gap: 6px;
   }
 
+  .card-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
   .card-author {
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--text-muted);
+  }
+
+  .card-audience {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--audience-text);
+    background: var(--audience-bg);
+    padding: 2px 7px;
+    border-radius: 20px;
+    width: fit-content;
   }
 
   .response-badge {
@@ -375,6 +393,10 @@
     return `<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`;
   }
 
+  function personIcon() {
+    return `<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style="width:10px;height:10px"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`;
+  }
+
   function buildCard(s, index) {
     const hasLink = !!s.link;
     const pct = hasLink ? Math.min(s.responses / s.target, 1) : 0;
@@ -395,7 +417,10 @@
     return `
       <article class="survey-card" style="animation-delay:${index * 45}ms">
         <div class="card-top">
-          <span class="card-author">${s.student}</span>
+          <div class="card-meta">
+            <span class="card-author">${s.student}</span>
+            <span class="card-audience">${personIcon()} ${s.audience}</span>
+          </div>
           <span class="response-badge ${badge.cls}">${badge.label}</span>
         </div>
         <div class="card-topic-wrap">
