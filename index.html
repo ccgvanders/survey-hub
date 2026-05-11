@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Year 10 Data Analytics — Student Research Surveys</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #24356f;
+    --burgundy: #991b2a;
+    --bg: #f7f7f5;
+    --surface: #ffffff;
+    --border: rgba(0,0,0,0.09);
+    --border-med: rgba(0,0,0,0.15);
+    --text-primary: #1a1a1a;
+    --text-secondary: #555;
+    --text-muted: #888;
+    --amber-bg: #fef3e2;
+    --amber-text: #92510a;
+    --amber-bar: #e09118;
+    --blue-bg: #e8f1fc;
+    --blue-text: #1a4f8a;
+    --blue-bar: #2f7dd4;
+    --green-bg: #eaf4e2;
+    --green-text: #2d6618;
+    --green-bar: #4a9a2a;
+    --muted-bg: #f0eeeb;
+    --muted-text: #888;
+    --radius: 12px;
+    --radius-sm: 7px;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  .page-wrap {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 3rem;
+  }
+
+  .page-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1.5px solid var(--border-med);
+  }
+
+  .page-header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    font-weight: 400;
+    color: var(--navy);
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+
+  .page-header p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 620px;
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 1.25rem;
+  }
+
+  .legend {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .sort-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .sort-chip {
+    padding: 4px 11px;
+    border-radius: 20px;
+    border: 1px solid var(--border-med);
+    cursor: pointer;
+    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--surface);
+    color: var(--text-secondary);
+    transition: all 0.15s;
+  }
+
+  .sort-chip:hover { border-color: var(--navy); color: var(--navy); }
+
+  .sort-chip.active {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: #fff;
+    font-weight: 500;
+  }
+
+  .survey-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 14px;
+  }
+
+  .survey-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.15rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    transition: box-shadow 0.18s, border-color 0.18s;
+    animation: fadeUp 0.3s ease both;
+  }
+
+  .survey-card:hover {
+    box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+    border-color: var(--border-med);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 6px;
+  }
+
+  .card-author {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .response-badge {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 7px;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .badge-low  { background: var(--amber-bg); color: var(--amber-text); }
+  .badge-mid  { background: var(--blue-bg);  color: var(--blue-text); }
+  .badge-good { background: var(--green-bg); color: var(--green-text); }
+  .badge-none { background: var(--muted-bg); color: var(--muted-text); }
+
+  .card-topic {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.3;
+  }
+
+  .card-question {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    flex: 1;
+  }
+
+  .card-footer {
+    margin-top: 2px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .progress-wrap {}
+
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+
+  .progress-bar-bg {
+    height: 4px;
+    background: #ebebeb;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.6s ease;
+  }
+
+  .fill-low  { background: var(--amber-bar); }
+  .fill-mid  { background: var(--blue-bar); }
+  .fill-good { background: var(--green-bar); }
+
+  .take-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--navy);
+    background: var(--bg);
+    border: 1px solid var(--border-med);
+    border-radius: var(--radius-sm);
+    padding: 7px 12px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.15s, border-color 0.15s;
+    width: 100%;
+  }
+
+  .take-btn:hover {
+    background: #edecea;
+    border-color: var(--navy);
+  }
+
+  .take-btn.disabled {
+    color: var(--muted-text);
+    background: var(--muted-bg);
+    border-color: var(--border);
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .updated-note {
+    text-align: right;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 1.5rem;
+  }
+
+  svg.icon {
+    width: 11px;
+    height: 11px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vertical-align: middle;
+    flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <header class="page-header">
+    <h1 id="pageTitle">Loading...</h1>
+    <p id="pageSubtitle"></p>
+  </header>
+
+  <div class="controls">
+    <div class="legend">
+      <span class="legend-item"><span class="legend-dot" style="background:var(--amber-bar)"></span>Needs responses</span>
+      <span class="legend-item"><span class="legend-dot" style="background:var(--blue-bar)"></span>Getting there</span>
+      <span class="legend-item"><span class="legend-dot" style="background:var(--green-bar)"></span>Target reached</span>
+    </div>
+    <div class="sort-row">
+      <span>Sort:</span>
+      <button class="sort-chip active" onclick="sortCards('needs', this)">Needs help first</button>
+      <button class="sort-chip" onclick="sortCards('alpha', this)">A–Z</button>
+    </div>
+  </div>
+
+  <div class="survey-grid" id="surveyGrid"></div>
+
+  <p class="updated-note" id="updatedNote"></p>
+
+</div>
+
+<script>
+  let allSurveys = [];
+  let globalTarget = 25;
+
+  function getBadge(r, t, hasLink) {
+    if (!hasLink) return { cls: 'badge-none', label: 'Coming soon' };
+    const pct = r / t;
+    if (pct >= 1)   return { cls: 'badge-good', label: `${r} responses` };
+    if (pct >= 0.5) return { cls: 'badge-mid',  label: `${r} / ${t}` };
+    return             { cls: 'badge-low',  label: `${r} / ${t}` };
+  }
+
+  function getFill(r, t) {
+    const pct = r / t;
+    if (pct >= 1)   return 'fill-good';
+    if (pct >= 0.5) return 'fill-mid';
+    return 'fill-low';
+  }
+
+  function externalIcon() {
+    return `<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`;
+  }
+
+  function clockIcon() {
+    return `<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`;
+  }
+
+  function buildCard(s, index) {
+    const target = globalTarget;
+    const hasLink = !!s.link;
+    const pct = hasLink ? Math.min(s.responses / target, 1) : 0;
+    const barWidth = Math.round(pct * 100);
+    const badge = getBadge(s.responses, target, hasLink);
+    const fill = getFill(s.responses, target);
+    const remaining = target - s.responses;
+    const progressLabel = !hasLink ? 'Survey link coming soon' : (s.responses >= target ? 'Target reached' : `${remaining} more needed`);
+
+    const btn = hasLink
+      ? `<a class="take-btn" href="${s.link}" target="_blank" rel="noopener">Take survey ${externalIcon()}</a>`
+      : `<button class="take-btn disabled">${clockIcon()} Coming soon</button>`;
+
+    return `
+      <article class="survey-card" style="animation-delay:${index * 40}ms">
+        <div class="card-top">
+          <span class="card-author">${s.student}</span>
+          <span class="response-badge ${badge.cls}">${badge.label}</span>
+        </div>
+        <p class="card-topic">${s.topic}</p>
+        <p class="card-question">${s.question}</p>
+        <div class="card-footer">
+          <div class="progress-wrap">
+            <div class="progress-meta">
+              <span>${progressLabel}</span>
+              <span>${hasLink ? barWidth + '%' : ''}</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill ${fill}" style="width:${barWidth}%"></div>
+            </div>
+          </div>
+          ${btn}
+        </div>
+      </article>`;
+  }
+
+  function renderCards(data) {
+    const grid = document.getElementById('surveyGrid');
+    grid.innerHTML = data.map((s, i) => buildCard(s, i)).join('');
+  }
+
+  function sortCards(mode, el) {
+    document.querySelectorAll('.sort-chip').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    let sorted = [...allSurveys];
+    if (mode === 'needs') {
+      sorted.sort((a, b) => {
+        const hasA = a.link ? 1 : 0;
+        const hasB = b.link ? 1 : 0;
+        if (hasA !== hasB) return hasA - hasB;
+        return (a.responses / globalTarget) - (b.responses / globalTarget);
+      });
+    }
+    if (mode === 'alpha') sorted.sort((a, b) => a.topic.localeCompare(b.topic));
+    renderCards(sorted);
+  }
+
+  fetch('surveys.json')
+    .then(r => r.json())
+    .then(data => {
+      document.getElementById('pageTitle').textContent = data.pageTitle;
+      document.getElementById('pageSubtitle').innerHTML = data.pageSubtitle;
+      globalTarget = data.target || 25;
+      allSurveys = data.surveys;
+
+      const sorted = [...allSurveys].sort((a, b) => {
+        const hasA = a.link ? 1 : 0;
+        const hasB = b.link ? 1 : 0;
+        if (hasA !== hasB) return hasA - hasB;
+        return (a.responses / globalTarget) - (b.responses / globalTarget);
+      });
+
+      renderCards(sorted);
+
+      const now = new Date();
+      document.getElementById('updatedNote').textContent =
+        `Response counts last updated: ${now.toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' })}`;
+    })
+    .catch(() => {
+      document.getElementById('pageTitle').textContent = 'Survey Hub';
+      document.getElementById('surveyGrid').innerHTML =
+        '<p style="color:#888; font-size:14px;">Could not load survey data. Please check that surveys.json is in the same folder as this file.</p>';
+    });
+</script>
+</body>
+</html>

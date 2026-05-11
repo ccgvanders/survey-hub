@@ -1,0 +1,84 @@
+{
+  "pageTitle": "Year 10 Data Analytics — Student Research Surveys",
+  "pageSubtitle": "Support your classmates by completing a short survey. Each takes just a few minutes. Surveys marked <em>needs responses</em> need your help most.",
+  "target": 25,
+  "surveys": [
+    {
+      "student": "Aiden",
+      "topic": "Gaming Preferences",
+      "question": "What are CCG senior school students' favourite types of video games?",
+      "link": null,
+      "responses": 0
+    },
+    {
+      "student": "Jim",
+      "topic": "Favourite Social Media Platforms",
+      "question": "Which social media platforms do CCG students use most, and why?",
+      "link": "https://forms.office.com/r/27ryY9z8pp",
+      "responses": 0
+    },
+    {
+      "student": "Jacob",
+      "topic": "Opinions on AI in Education",
+      "question": "What are CCG students' opinions on the use of AI in their education?",
+      "link": "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=z5Ki4JzsDkqBNZzgAPuUq9mrGS7OVlhFniso2E_yUhlUNjNWMk5MTkY3NkY5M1I2SlhBSDJWQkQwMy4u&classId=66e2c934-c6fe-4e31-bc6c-20ee345e365c&assignmentId=fdb6d72e-a881-474b-850f-c77d1e0aa327&submissionId=c19fe31f-37c4-7dcd-9cae-6ce8177504ad",
+      "responses": 0
+    },
+    {
+      "student": "Sarrah",
+      "topic": "Streaming Services and Content",
+      "question": "Which streaming and content services do CCG students use or have access to?",
+      "link": "https://forms.office.com/r/GQN0yfvAjJ",
+      "responses": 0
+    },
+    {
+      "student": "Htoo",
+      "topic": "Sleep Habits and Wellbeing",
+      "question": "How much sleep are Year 10 students getting, and how is it affecting their wellbeing?",
+      "link": null,
+      "responses": 0
+    },
+    {
+      "student": "Ed",
+      "topic": "eSports and Competitive Gaming",
+      "question": "How many students at CCG participate in competitive gaming or eSports?",
+      "link": "https://forms.cloud.microsoft/r/uCk2TsSL7J",
+      "responses": 0
+    },
+    {
+      "student": "Noah",
+      "topic": "Energy Drink Consumption",
+      "question": "How often do Year 10 students consume energy drinks?",
+      "link": "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=z5Ki4JzsDkqBNZzgAPuUq6ox7hxClEtNr0Ilc-VrdeRUM0ZXSlRVRU5YQVFVM1hDOVg2M0FWRDhCRS4u",
+      "responses": 0
+    },
+    {
+      "student": "James",
+      "topic": "Lunch Choices at School",
+      "question": "Do Year 10 students bring lunch from home, buy from the canteen, or skip lunch?",
+      "link": "https://forms.office.com/r/jrVCawiNeV",
+      "responses": 0
+    },
+    {
+      "student": "Andrius",
+      "topic": "Screen Time and Eye Health",
+      "question": "How does prolonged screen use contribute to digital eye strain symptoms in adolescents?",
+      "link": "https://forms.office.com/r/eFUevY8k4w",
+      "responses": 0
+    },
+    {
+      "student": "Jack",
+      "topic": "Breakfast Habits",
+      "question": "What are the regular breakfast habits of students from CCG?",
+      "link": "https://forms.office.com/pages/responsepage.aspx?id=z5Ki4JzsDkqBNZzgAPuUq3Yo8_7u4lOv9W_aOR2bBhUMjM0WEllWE1NQjhITURMWloyUjRLMVdZMS4u&route=shorturl",
+      "responses": 0
+    },
+    {
+      "student": "Alicia",
+      "topic": "Household Recycling",
+      "question": "What percentage of Year 10 students actively recycle at home?",
+      "link": null,
+      "responses": 0
+    }
+  ]
+}
